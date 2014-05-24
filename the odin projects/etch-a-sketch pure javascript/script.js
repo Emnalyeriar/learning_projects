@@ -2,6 +2,9 @@
     var divNumber = 50,
         main = document.getElementsByClassName("main"),
         generate = function(divNumber) {
+            while (main[0].firstChild) {
+                main[0].removeChild(main[0].firstChild);
+            };
             for (var j=1; j<=divNumber; j++) {
                 for (var i=1; i <= divNumber; i++) {
                     var divs = document.createElement("div");
@@ -18,7 +21,12 @@
                 };
             }        
         };
-    console.log(main);
+    document.getElementById("size").onclick = function() {
+        divNumber = prompt('Size 1-100', 50);
+        generate(divNumber);
+        persistent();
+    }
+    //console.log(main);
     window.onload = generate(divNumber);
     window.onload = persistent();
 })();
