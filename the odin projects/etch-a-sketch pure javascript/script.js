@@ -39,7 +39,7 @@
                     this.style.backgroundColor="black";
                     var that = this;
                     setTimeout(function() {
-                        that.style.backgroundColor="#d9d9d9";
+                        that.style.backgroundColor="white";
                     }, 200);
                 };
             }               
@@ -50,7 +50,11 @@
                 divs[i].onmouseover = function() {
                     this.style.backgroundColor="black";
                     opacity =  parseFloat(window.getComputedStyle(this, null).getPropertyValue("opacity"));
+                    if (opacity < .1) {
+                        this.style.opacity = 0;   
+                    } else {
                     this.style.opacity = opacity - .1;
+                    };
                 };
             };
         };
