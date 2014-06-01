@@ -1,0 +1,27 @@
+.well {
+    width: 800px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+.description {
+}
+form{
+    padding: 0 25px;
+    border-right: 1px solid #d3d3d3;
+}
+form div input:focus {
+    border: 1px solid black !important;
+    box-shadow: none !important;
+}
+.zip {
+    width: 100px;
+}
+h2{
+    margin-bottom: 25px;
+}
+.checkbox {
+    margin-top: 25px;
+}
+button {
+    margin-top: 20px;
+}
