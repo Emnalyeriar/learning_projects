@@ -1,7 +1,8 @@
 (function() {
-    
-    $(document).ready(function(){
-        $('input').blur(function(){
+
+var validation = {
+    init: function() {
+        $(this).blur(function(){
             if ( $(this).val() == "") { //if the input value is null 
                 $(this).parent().addClass('has-error'); //then give the input parent - div an error class
                 if ( $(this).parent().find('span.glyphicon').length ) {  //now we want to add an error icon but first we check if there alredy is one
@@ -24,6 +25,9 @@
                 }
             }
         });
-    });
-    
+    }
+}
+
+validation.init.call($('input'));
+
 })();
