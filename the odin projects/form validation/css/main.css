@@ -25,3 +25,6 @@ h2{
 button {
     margin-top: 20px;
 }
+form > div > p {
+    color: #b11a1a;
+}

@@ -2,15 +2,7 @@
 
 var validation = {
     init: function() {
-        $(this).blur(function(){
-            if ( $(this).val() == "") { //if the input value is null 
-                validation.addErrorStatus.call($(this));
-            } else {
-                validation.addOkStatus.call($(this));
-                validation.checkMatch('email');
-                validation.checkMatch('password');
-            }
-        });
+        validation.validateEmail();
     },
     addErrorStatus: function() {
             $(this).parent().addClass('has-error'); //then give the input parent - div an error class
@@ -35,23 +27,34 @@ var validation = {
             }        
     },
     checkMatch: function(type) {
-        var inputOne = $('#'+type+'1'),
+        var inputOne = $('#'+type+'1'),  
             inputTwo = $('#'+type+'2');
-        console.log(inputOne, inputTwo);
-        $('#'+type+'1, #'+type+'2').keyup(function() {
+        $('#'+type+'1, #'+type+'2').keyup(function() {  //chech if equal on each keyup
             if (inputOne.val() === inputTwo.val()) {
-                $('#'+type+'-status').text(type.toUpperCase()+'\'s match.')
-                validation.addOkStatus.call(inputOne);
-                validation.addOkStatus.call(inputTwo);
+                $('#'+type+'2-status').text(' ')
+                validation.addOkStatus.call(inputTwo); //if match adds ok status
             } else {
-                $('#'+type+'-status').text(type.toUpperCase()+'\'s doesn\'t match.')
-                validation.addErrorStatus.call(inputOne);
+                $('#'+type+'2-status').text('This does not match the '+type+' entered above.')  //if emails do not match displays error text and sets error status
                 validation.addErrorStatus.call(inputTwo);
             }
         })
+    },
+    validateEmail: function() {
+        var email = $('#email1'),
+            re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        email.blur(function() {  //check if email is right when input losses focus
+            if (email.val() == '' || !re.test(email.val())) {
+                validation.addErrorStatus.call(email);   //if email is wrong add error status and show error text
+                $('#email1-status').text('Please use a valid email address.');
+            } else {
+                validation.addOkStatus.call(email);
+                $('#email1-status').text(' ');
+                validation.checkMatch('email'); //if the email is ok set ok status, delete error text if there was one and run the function that checks if the second email matches the first one
+            }
+        });
     }
 }
 
-validation.init.call($('input'));
+validation.init();
 
 })();
