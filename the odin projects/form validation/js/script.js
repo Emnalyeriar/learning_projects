@@ -4,6 +4,7 @@ var validation = {
     init: function() {
         validation.validateEmail();
         validation.validatePassword();
+        validation.submit();
     },
     addErrorStatus: function() {
             $(this).parent().addClass('has-error'); //then give the input parent - div an error class
@@ -42,7 +43,7 @@ var validation = {
     },
     validateEmail: function() {
         var email = $('#email1'),
-            re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;  //email regex pattern
         email.blur(function() {  //check if email is right when input losses focus
             if (email.val() == '' || !re.test(email.val())) {
                 validation.addErrorStatus.call(email);   //if email is wrong add error status and show error text
@@ -50,7 +51,7 @@ var validation = {
             } else {
                 validation.addOkStatus.call(email);
                 $('#email1-status').text(' ');
-                validation.checkMatch('email'); //if the email is ok set ok status, delete error text if there was one and run the function that checks if the second email matches the first one
+                validation.checkMatch('email'); //if the email is valid set ok status, delete error text if there was one and run the function that checks if the second email matches the first one
             }
         });
     },
@@ -60,13 +61,23 @@ var validation = {
         password.blur(function() {  //check if password is right when input losses focus
             if (password.val() == '' || !re.test(password.val())) {
                 validation.addErrorStatus.call(password);   //if email is wrong add error status and show error text
-                $('#password1-status').text('Password must have at least 8 characters to maximum of 20 and conatin one digit, one lowercase and one uppercase character.');
+                $('#password1-status').text('Password must have at least 8 characters to maximum of 20 and contain one digit, one lowercase and one uppercase character.');
             } else {
                 validation.addOkStatus.call(password);
                 $('#password1-status').text(' ');
                 validation.checkMatch('password'); //if the password is ok set ok status, delete error text if there was one and run the function that checks if the second email matches the first one
             }
         });
+    },
+    submit: function() {
+        $('form').on('submit', function(evt) {
+            if ($('div').hasClass('has-error')) {
+                evt.preventDefault();
+            } else if ($('input[type="checkbox"]').prop('checked') == false) {
+                evt.preventDefault();
+                $('#checkbox-status').text('You have to agree.');
+            }
+        })
     }
 }
 
