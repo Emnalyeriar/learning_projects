@@ -121,7 +121,7 @@
         }, this.speed);
         
         $('.slider a').on('click', function(e){
-            e.preventDefault;
+            e.preventDefault();
             clearInterval(interval);
             slider.loop();
             interval = setInterval(function(){
