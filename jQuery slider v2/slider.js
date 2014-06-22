@@ -123,7 +123,7 @@
         $('.slider a').on('click', function(e){
             e.preventDefault();
             clearInterval(interval);
-            slider.loop();
+            slider.loop.call(this);
             interval = setInterval(function(){
                 slider.loop();
             }, slider.speed);
